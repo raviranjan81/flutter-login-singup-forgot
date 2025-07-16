@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Premium ID Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            padding: 30px;
+        }
+
+        .wrapper {
+            display: flex;
+            gap: 40px;
+        }
+
+        .card {
+            width: 350px;
+            height: 650px;
+            background: #fff !important;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* FRONT */
+        .front-header {
+            height: 200px;
+            {{--  background: linear-gradient(135deg, #1e293b, #334155);  --}}
+            /* Dark navy gradient */
+            clip-path: polygon(0 0, 100% 0, 75% 75%, 0 100%);
+            position: relative;
+        }
+
+        .front-circle {
+            position: absolute;
+            top: 90px;
+            left: 50px;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle at 30% 30%, #facc15, #b45309);
+            /* gold-brass glow */
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .header-photo{
+            position: relative;
+            height: 160px;
+            top:0px;
+            width: 160px;
+            border-radius: 50%;
+
+        }
+        .front-logo {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 2;
+            width: 70px;
+        }
+
+        .front-title {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 24px;
+            text-transform: capitalize;
+            font-weight: 700;
+            color: #090a35;
+
+        }
+
+        .info {
+            padding: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            line-height: 1.8em;
+        }
+
+        /* BACK */
+        .back-header {
+            height: 160px;
+            {{--  background: linear-gradient(135deg, #1e293b, #475569);  --}}
+            clip-path: polygon(0 0, 100% 0, 80% 80%, 0 100%);
+            position: relative;
+        }
+
+        .back-logo {
+            position: absolute;
+            top: 40px;
+            right: 125px;
+            width: 100px;
+            drop-shadow: 1px 1px 2px rgba(0,0,0,0.6); /* Soft shadow */
+
+        }
+
+       .back-title {
+            position: absolute;
+            top: 25px;
+            left: 20px;
+            font-weight: bold;
+            font-size: 13px;
+            line-height: 1.4em;
+            color: white;
+        }
+
+        .back-title span {
+            display: inline-block;
+            position: relative;
+            padding: 2px;
+            margin: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6); /* Soft shadow */
+        }
+
+
+        .back-body {
+            padding: 20px;
+            font-size: 12px;
+            color: #334155;
+        }
+
+        .back-body p {
+            margin-bottom: 10px;
+        }
+
+        .rules {
+            margin-top: 12px;
+            padding-left: 20px;
+        }
+
+        /* FOOTER */
+        .footer-bar {
+            height: 45px;
+            background: linear-gradient(to right, #0f172a, #9333ea);
+            /* deep navy to purple */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .footer-sm {
+            background: #ffffff;
+            font-size: 10px;
+            text-align: center;
+            color: #131415ff;
+            padding-bottom: 6px;
+        }
+        .signature {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .signature .left img,.signature .right img{
+            width: 100px;
+            height:80px;
+            object-fit: contain;
+        }
+        .signature .left p,.signature .right p{
+            font-size: 12px;
+            position: relative;
+            top: -10px;
+            font-weight: 700;
+            color: #090a35;
+        }
+        .nameDepartment{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+        }
+         .nameDepartment span{
+            background: linear-gradient(to right, #0f172a, #9333ea);
+            padding: 2px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #e2e8f0;
+            border-radius: 5px;
+        }
+
+        table tr td{
+            border:1px solid #e2e8f0;
+            padding: 5px 5px !important;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <!-- FRONT SIDE -->
+        <div class="card">
+            <div>
+                <div style="background: {{ $data->gradient_color }}" class="front-header">
+                      <div class="back-title">
+    <span>A</span><span>C</span><span>T</span><span>A</span><span>D</span><span>C</span><span>D</span>
+    <span>&nbsp;</span>
+    <span>M</span><span>U</span><span>M</span><span>B</span><span>A</span><span>I</span>
+</div>
+                </div>
+                <div class="front-circle">
+                    @if ($data->image)
+                    <img class="header-photo" src="{{ storage_path('app/public/members/') }}{{ $data->image }}" alt="">
+                    @else
+                    <img class="header-photo" src="{{ storage_path('app/public/404.png') }}" alt="">
+                    @endif
+                </div>
+
+                <div class="front-title">{{ $data->name }}</div>
+                 <div class="nameDepartment"> <span>{{ $data->department }}</span> </div>
+                <div class="info">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 4px 0; font-weight: 600;">Contact No:</td>
+                            <td style="padding: 4px 0; text-align: right;">{{ $data->contact_no }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 4px 0; font-weight: 600;">Emergency No:</td>
+                            <td style="padding: 4px 0; text-align: right;">{{ $data->contact_no_two }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 4px 0; font-weight: 600;">Blood Group:</td>
+                            <td style="padding: 4px 0; text-align: right;">{{ $data->blood_group }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 4px 0; font-weight: 600;">DOB:</td>
+                            <td style="padding: 4px 0; text-align: right;">{{ $data?->dob?->format('d-M-Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 4px 0; font-weight: 600;">Date of Joining:</td>
+                            <td style="padding: 4px 0; text-align: right;">{{ $data?->doj?->format('d-M-Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 4px 0; font-weight: 600;">Address:</td>
+                            <td style="padding: 4px 0; text-align: right;">{{ $data?->address }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div>
+                <div class="footer-bar">ACTADCD MEMBERSHIP CARD</div>
+                <div class="footer-sm">www.actadcd.in</div>
+            </div>
+        </div>
+
+        <!-- BACK SIDE -->
+        <div class="card">
+            <div>
+                 @php
+                    $signatureOneName = metaData('signature_one_name');
+                    $address = metaData('address');
+                    $signatureTwoName = metaData('signature_two_name');
+                    $signatureTwoImg = metaData('signature_two_img');
+                    $signatureOneImg = metaData('signature_one_img');
+                    $telephone_no = metaData('telephone_no');
+                    $contact_no = metaData('contact_no');
+                @endphp
+                <div style="background: {{ $data->gradient_color }}" class="back-header">
+                    <img src="{{ public_path('logo.png') }}" class="back-logo" alt="Logo">
+                   <div class="back-title">
+                    <span>A</span><span>C</span><span>T</span><span>A</span><span>D</span><span>C</span><span>D</span>
+                    <span>&nbsp;</span>
+                    <span>M</span><span>U</span><span>M</span><span>B</span><span>A</span><span>I</span>
+                </div>
+                </div>
+                <div class="signature">
+                    <div class="left">
+                        <img src="{{ storage_path('app/public/logo/') }}{{ $signatureOneImg  }}" alt="">
+                        <p><strong> MR. {{  $signatureOneName }} </strong></p>
+                        <p><strong>PRESIDENT  </strong></p>
+                    </div>
+                    <div class="right">
+                    <img src="{{ storage_path('app/public/logo/') }}{{ $signatureTwoImg  }}" alt="">
+                        <p><strong> MR. {{  $signatureTwoName }} </strong>  </p>
+                        <p><strong>GEN. SECRETARY</strong></p>
+                    </div>
+                </div>
+
+                <div class="back-body">
+
+
+                    <p><strong>Address:</strong> {{ $address }}</p>
+                    <p><strong>Phone:</strong> {{ $telephone_no }}, {{ $contact_no }}</p>
+                    <ol class="rules">
+                        <li>The Holder is a Bonafide Member of this Association.</li>
+                        <li>This Card is not transferable and must be produced on demand.</li>
+                        <li>Carry this card at work and while voting in the A.G.M.</li>
+                        <li>Association is not liable for misuse of this card.</li>
+                    </ol>
+                </div>
+            </div>
+            <div>
+                <div class="footer-bar">{{ $data->department }}</div>
+                   <div class="footer-sm">www.actadcd.in</div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
